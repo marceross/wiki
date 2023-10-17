@@ -1,9 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>Wiki look out</title>
-    </head>
-    <body>
-        <h1>{{ title }}!</h1>
-    </body>
-</html>
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block body %}
+    {% if title %}
+            <h1>{{ title }}</h1>
+        {% else %}
+            <p>Wikipedia does not have an article with this exact name.</p>
+        {% endif %}
+{% endblock %}
