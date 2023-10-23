@@ -1,3 +1,31 @@
+Done with index page link and random search
+
+
+
+https://docs.python.org/3/howto/regex.html
+https://regex101.com/r/fN3jU0/1
+
+https://www.pythontutorial.net/python-regex/python-regex-sub/
+
+https://betterprogramming.pub/create-your-own-markdown-parser-bffb392a06db
+import re
+
+\w
+Matches any alphanumeric character; this is equivalent to the class [a-zA-Z0-9_].
+
+\s
+Matches any whitespace character; this is equivalent to the class [ \t\n\r\f\v].
+
+#Heading
+^#(\w+)#$
+
+**Bold**
+\*\*([\w\s,\.]+)\*\*
+
+parrafo (se busca un espacio)
+^ (\w+)
+
+
 Wiki project
 Done with visiting /wiki/TITLE
 Understood urls.py from project and from app
@@ -85,9 +113,10 @@ The inner **mysite/** directory is the actual Python package for your project. I
 https://www.markdownguide.org/basic-syntax/
 # Heading =<h1>
 ###### Heading =<h6>
-*italic*
+
 **bold**
 
+Unordered list
 * item \ to escape the.
 * item
 or
@@ -101,16 +130,6 @@ or
 [this is a link](https://link.com)
 
 
-url or email into link
-<hello@email.com>
-<mysite.com>
-
-
-Nested Blockquotes
-> Some text text
->> Some more text inside
-
-code `this is code`
-
-***
+paragraph just a blank line below
+<p></p>
 

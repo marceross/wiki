@@ -3,20 +3,13 @@ from django.shortcuts import render
 
 from . import util
 
+from random import choice
+
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()
     })
-
-
-def marce(request):
-    return HttpResponse ("Hello, Marce!")
-
-
-def greet1(request, name):
-    return HttpResponse(f"Hello, {name}!")
-
 
 '''def wiki(request, name):
     return render(request, "encyclopedia/wiki.html", {
@@ -32,3 +25,6 @@ get_entry() missing 1 required positional argument: 'title
 
 needed to add the word title inside()
 '''
+
+def random_page(request):
+    return entry_page(request,choice( util.list_entries()))
