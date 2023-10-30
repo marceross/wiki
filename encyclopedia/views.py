@@ -9,6 +9,8 @@ from . import md_converter
 
 
 from django import forms
+#from django.http import HttpResponseRedirect
+#from django.urls import reverse
 
 class NewPage(forms.Form):
     title = forms.CharField (widget=forms.TextInput (attrs={'placeholder':'Enter title'}))
@@ -49,12 +51,56 @@ def random_page(request):
     return entry_page(request,choice( util.list_entries()))
 
 def new_page(request):
-    #if request.method== "POST":
+    if request.method== "POST":
         form = NewPage(request.POST)
-        #if form.is_valid():
-           # return entry_page(request( util.save_entry(title, content)))'''
-        return render(request, "encyclopedia/new_page.html", {
-                "form": form})
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            content = form.cleaned_data["content"]
+            util.save_entry(title, content)
+            #return HttpResponseRedirect(reverse("wiki:wiki"))
+            return entry_page(request, title)
+            #return render(request, "encyclopedia/wiki.html", {"title": util.get_entry(title)})
+        else:
+           # return entry_page(request( util.save_entry(title, content)))
+            return render(request, "encyclopedia/new_page.html", {"form": form
+            })
+    else:
+        return render(request, "encyclopedia/new_page.html", {"form": NewPage()
+        })
+    
+
+'''def new_page(request):
+    if request.method== "POST":
+        form = NewPage(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            content = form.cleaned_data["content"]
+            if title == util.get_entry(title):
+                print("An entry named:{title} already exists")
+            
+
+            else:
+                util.save_entry(title, content)
+                #return HttpResponseRedirect(reverse("wiki:wiki"))
+                return entry_page(request, title)
+                #return render(request, "encyclopedia/wiki.html", {"title": util.get_entry(title)})
+
+        else:
+           # return entry_page(request( util.save_entry(title, content)))
+           #print("An entry named:{title} already exists")
+            return render(request, "encyclopedia/new_page.html", {"form": form
+            })
+    else:
+        return render(request, "encyclopedia/new_page.html", {"form": NewPage()
+        })'''
+
+
             
 '''return render(request, "encyclopedia/wiki.html",
     {"title": util.get_entry(title)})'''
+
+
+
+
+
+#def edit_page(request):

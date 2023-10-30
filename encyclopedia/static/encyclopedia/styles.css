@@ -17,6 +17,12 @@ textarea {
     width: 80%;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
 .main {
     padding: 10px;
 }

@@ -10,7 +10,6 @@ urlpatterns = [
     path("wiki/<str:title>", views.entry_page, name="link"),
     path("random/", views.random_page, name="random"),
 
-
     path("new_page/", views.new_page, name="new_page"),
 
     # the directory where the file is configured in views.py
