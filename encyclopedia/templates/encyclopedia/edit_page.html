@@ -5,9 +5,13 @@
 {% endblock %}
 
 {% block body %}
-    {% if title %}
-            <h1>{{ title }}</h1>
-        {% else %}
-            <p>Wikipedia does not have an article with this exact name.</p>
-        {% endif %}
+<h1>Edit entry</h1>
+
+    <form action="{% url 'wiki:edit'  %}" method = "post">
+        {% csrf_token %}
+        {% with form_info=title %}    
+        <button type="submit"  name = "edit" value="{{form_info}}" id ="edit">edit</button>
+        {%endwith%}
+        <h1 class="display-4 text-secondary">{{title}}</h1>
+    </form>
 {% endblock %}

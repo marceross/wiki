@@ -8,7 +8,7 @@
     {% if title %}
             <h1>{{ title|safe }}</h1>
             <div>
-                <a href="{% url 'wiki:index' %}">Edit entry</a>
+                <a href="{% url 'wiki:edit' %}">Edit entry</a>
             </div>
         {% else %}
             <p>Wikipedia does not have an article with this exact name.</p>
