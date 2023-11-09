@@ -1,3 +1,6 @@
+https://sparkbyexamples.com/python/using-filter-with-lambda-in-python/
+
+
 Done with index page link and random search
 
 

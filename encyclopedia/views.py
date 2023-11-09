@@ -17,7 +17,6 @@ class NewPage(forms.Form):
     content = forms.CharField (widget=forms.Textarea (attrs={'placeholder':'Enter content here\nAs markdown reference:\n#Heading\n**Bold**'}))
 
 class EditForm(forms.Form):
-    title = forms.CharField (widget=forms.TextInput)
     content = forms.CharField (widget=forms.Textarea)
 
 class SearchForm(forms.Form):
@@ -42,10 +41,10 @@ def entry_page(request, title):
     '''
 
 def entry_page(request, title):
-     entry_md=util.get_entry(title)
-     html = md_converter.to_html(entry_md)
-     print(html)
-     return render(request, "encyclopedia/wiki.html",{"title": html})
+    entry_md=util.get_entry(title)
+    html = md_converter.to_html(entry_md)
+    print(html)
+    return render(request, "encyclopedia/wiki.html",{"title": title, "content": html})
 
 '''
 TypeError at /wiki/css
@@ -81,7 +80,7 @@ def new_page(request):
         })
     
 
-def edit_page(request, title):
+'''def edit_page(request, title):
     if request.method== "POST":
         edit = EditForm(request.POST)
         if edit.is_valid():
@@ -92,10 +91,10 @@ def edit_page(request, title):
     else:
         #return render(request, "encyclopedia/new_page.html", {"form": NewPage()})
         edit = EditForm({"title": title, "content": util.get_entry(title)})
-        return render(request, "encyclopedia/edit.html", {"form": edit, "edit": edit})
+        return render(request, "encyclopedia/edit.html", {"form": edit, "edit": edit})'''
     
 
-def search(request,title):
+'''def search(request,title):
     #search = SearchForm(request.POST or None)      
     #if request.method == "POST" and search.is_valid():
     if request.method == "POST":
@@ -109,7 +108,27 @@ def search(request,title):
                 return render(request, "encyclopedia/wiki.html",{"search":search})
     else:
         #return HttpResponseRedirect("wiki:index")
-        return render(request, "encyclopedia/wiki.html",{"search":SearchForm()})
+        return render(request, "encyclopedia/wiki.html",{"search":SearchForm()})'''
+    
+    
+
+'''def search_entry(search):
+    """
+    Retrieves a filtered list of encyclopedia entries.
+    """
+    return list(filter(lambda x: search.upper() in x.upper(), list_entries()))'''
+
+
+def search(request):
+    entries = []
+    if request.method == "POST":
+        search = SearchForm(request.POST)
+        if search.is_valid():
+            search = search.cleaned_data["search"]
+            entries = list(filter(lambda x: search.upper() in x.upper(), util.list_entries()))
+            if(len(entries) == 1):
+                return entry_page(request, entries[0])
+    return render(request, "encyclopedia/searchlist.html",{"entries": entries})
     
 
 
@@ -170,3 +189,14 @@ def search(request,title):
         #return render(request, "encyclopedia/new_page.html", {"form": NewPage()})
         edit = EditForm({"title": title, "content": util.get_entry(title)})
         return render(request, "encyclopedia/edit.html", {"form": edit, "edit": edit})'''
+
+def edit_page(request, title):
+    if request.method== "POST":
+        edit = EditForm(request.POST)
+        if edit.is_valid():
+            content = edit.cleaned_data["content"]
+            util.save_entry(title, content)
+            return entry_page(request, title)
+    else:
+        edit = EditForm({"content": util.get_entry(title)})
+        return render(request, "encyclopedia/edit_page.html", {"form": edit, "title": title})

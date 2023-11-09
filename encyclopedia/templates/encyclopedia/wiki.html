@@ -5,10 +5,12 @@
 {% endblock %}
 
 {% block body %}
-    {% if title %}
-            <h1>{{ title|safe }}</h1>
+    {% if content %}
             <div>
-                <a href="{% url 'wiki:edit' %}">Edit entry</a>
+                {{ content|safe }}
+            </div>        
+            <div>
+                <a href="{% url 'wiki:edit' title=title %}">Edit entry</a>
             </div>
         {% else %}
             <p>Wikipedia does not have an article with this exact name.</p>
